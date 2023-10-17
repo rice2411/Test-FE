@@ -1,4 +1,4 @@
-### Hiện tại API của https://mystoreapi.com/ đang chặn CORS vui lòng truy cập https://cors-anywhere.herokuapp.com/corsdemo và click vào "Request temporary access to the demo server" để có quyền truy cập API
+Hiện tại API của https://mystoreapi.com/ đang chặn CORS vui lòng truy cập https://cors-anywhere.herokuapp.com/corsdemo và click vào "Request temporary access to the demo server" để có quyền truy cập API
 
 Live demo: test-fe-dev.netlify.app
 username: rice2411

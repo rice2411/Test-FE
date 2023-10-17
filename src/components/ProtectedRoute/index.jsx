@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AuthService from "../../service/auth";
-import { matchRoutes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  matchRoutes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { logout } from "../../utils/auth";
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -10,15 +16,12 @@ const ProtectedRoute = ({ children }) => {
   const tokenValidation = async () => {
     try {
       setIsLoading(true);
-      const response = await AuthService.getMe();
-      if (response.data) {
-        if (location.pathname == "/login") {
-          navigate("/home");
-        }
-        return;
-      }
+      await AuthService.getMe();
+      if (location.pathname == "/login") navigate("/home");
     } catch (err) {
+      logout();
       navigate("/login");
+      return;
     } finally {
       setIsLoading(false);
     }
@@ -27,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
     tokenValidation();
   }, []);
 
-  return <>{isLoading ? <>...Loading</> : children}</>;
+  return <>{!isLoading && children}</>;
 };
 
 export default ProtectedRoute;

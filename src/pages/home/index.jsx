@@ -28,11 +28,11 @@ export default function HomePage() {
       ...pagination,
       totalPages: totalPages,
       totalDocs: count,
+      page: 1,
     };
     if (skip != 0) {
       paginationNew.page = skip / PAGINATE.limit + 1;
     }
-
     await setPagination(() => {
       return paginationNew;
     });
@@ -41,6 +41,9 @@ export default function HomePage() {
   const fetchData = async (params, skip) => {
     setIsLoading(true);
     try {
+      if (category?.value) {
+        params.skip = 0;
+      }
       const response = category?.value
         ? await CategoryService.getProductsByCategory(params, category.value)
         : await ProductService.getAll(params);
